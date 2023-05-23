@@ -3,12 +3,14 @@ theme:
   name: material
   features:
     - navigation.tabs
+    - navigation.footer
 # 仓库链接
-repo_url: https://github.com/h4m5t/FreeSIEM.git
+repo_url: https://github.com/h4m5t/FreeSIEM
+repo_name: h4m5t/FreeSIEM
 # 作者
 site_author: 'h4m5t'
 # 版权信息
-copyright: '2023, h4m5t'
+copyright: Copyright &copy; 2023 h4m5t
 # 源文件目录
 docs_dir: 'docs'
 # 生成静态文件目录
@@ -17,6 +19,14 @@ docs_dir: 'docs'
 extra:
     # 版本号
     version: 1.0
+    social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/h4m5t
+    - icon: fontawesome/brands/github
+      link: https://github.com/h4m5t
+    - icon: fontawesome/brands/medium
+      link: https://medium.com/@h4m5t
+
 # markdown扩展
 markdown_extensions:
 
