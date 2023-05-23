@@ -4,6 +4,23 @@ theme:
   features:
     - navigation.tabs
     - navigation.footer
+    - navigation.top # 一键回顶部
+
+  palette: 
+
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+
+
 # 仓库链接
 repo_url: https://github.com/h4m5t/FreeSIEM
 repo_name: h4m5t/FreeSIEM
@@ -20,10 +37,12 @@ extra:
     # 版本号
     version: 1.0
     social:
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/h4m5t
+    - icon: fontawesome/brands/zhihu
+      link: https://www.zhihu.com/people/h4m5t
     - icon: fontawesome/brands/github
       link: https://github.com/h4m5t
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/h4m5t
     - icon: fontawesome/brands/medium
       link: https://medium.com/@h4m5t
 
