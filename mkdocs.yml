@@ -1,6 +1,8 @@
 site_name: FreeSIEM
 theme:
   name: material
+  features:
+    - navigation.tabs
 # 仓库链接
 repo_url: https://github.com/h4m5t/FreeSIEM.git
 # 作者
