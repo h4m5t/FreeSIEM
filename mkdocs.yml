@@ -54,6 +54,7 @@ nav:
     - Home: index.md
     - Getting started:
       - Installation: install.md
+      - 安装thehive: installthehive.md
       - 学习视频: learnshipin.md
     - Reference:
       - Reference: reference.md
