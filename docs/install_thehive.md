@@ -365,5 +365,6 @@ tail -f  /var/log/thehive/application.log
 
 卸载重装。
 
-
+## docker安装the hive
+待更新。
 
