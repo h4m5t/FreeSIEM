@@ -64,6 +64,36 @@ Error: A fatal exception has occurred. Program will exit.
 TAKE_FILE_OWNERSHIP=true
 ```
 
+打开Cortex9001页面，报错如下：
+
+```
+Error:user init not found
+```
+
+查看日志发现：
+
+```
+[error] o.t.c.s.ErrorHandler - Internal error
+java.lang.RuntimeException: HttpResponse(429,Some(StringEntity({"error":{"root_cause":[{"type":"cluster_block_exception","reason":"index [cortex_6] blocked by: [TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, index has read-only-allow-delete block];"}],"type":"cluster_block_exception","reason":"index [cortex_6] blocked by: [TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, index has read-only-allow-delete block];"},"status":429},Some(UTF-8))),Map(X-elastic-product -> Elasticsearch, content-type -> application/json; charset=UTF-8, content-length -> 399))
+```
+
+解决方法：https://github.com/TheHive-Project/Cortex/issues/187
+
+查找索引
+
+```
+curl -s http://localhost:9200/_all/_settings
+```
+
+删除索引：
+
+```
+curl -X DELETE http://localhost:9200/cortex_6/"
+{"acknowledged":true}
+```
+
+
+
 ## step by step安装
 
 参考官方安装文档：
