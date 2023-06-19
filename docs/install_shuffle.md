@@ -54,7 +54,12 @@ docker换源
 }
 ```
 
-
+建议使用阿里云docker镜像加速服务：https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
+```
+{
+  "registry-mirrors": ["https://2aibpl9o.mirror.aliyuncs.com"]
+}
+```
 
 重启使配置生效
 
