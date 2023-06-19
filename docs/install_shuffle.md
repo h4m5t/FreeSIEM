@@ -12,6 +12,30 @@
 
 ### 1.下载docker和docker-compose
 
+安装docker,使用官方脚本安装。
+
+```
+curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+```
+
+
+
+安装docker-compose
+
+```
+#下载二进制包，可以使用国内仓库替换，如果提示证书不安全，则加上--insecure参数。
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose --insecure
+
+#将可执行权限应用于二进制文件：
+sudo chmod +x /usr/local/bin/docker-compose
+
+#创建软链
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+#测试是否安装成功：
+docker-compose version
+```
+
 ### 2.下载shuffle
 
 ```
