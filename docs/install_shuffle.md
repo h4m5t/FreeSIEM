@@ -36,6 +36,39 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 docker-compose version
 ```
 
+docker换源
+`vim /etc/docker/daemon.json`
+
+```
+{
+    "registry-mirrors" : [
+    "https://registry.docker-cn.com",
+    "https://kfwkfulq.mirror.aliyuncs.com",
+    "https://2lqq34jg.mirror.aliyuncs.com",
+    "https://pee6w651.mirror.aliyuncs.com",
+    "http://hub-mirror.c.163.com",
+    "https://docker.mirrors.ustc.edu.cn",
+    "https://cr.console.aliyun.com",
+    "https://mirror.ccs.tencentyun.com"
+  ]
+}
+```
+
+
+
+重启使配置生效
+
+```
+systemctl daemon-reload
+systemctl restart docker.service
+```
+
+查看换源是否成功：
+
+```
+docker info
+```
+
 ### 2.下载shuffle
 
 ```
