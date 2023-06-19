@@ -1,6 +1,70 @@
 # 搭建 the hive
 
-## 说明
+## 使用docker安装
+### 参考
+
+https://chinyati.medium.com/the-hive-cortex-through-docker-installation-e50cbadb6cb0
+
+https://wmvalente.medium.com/installing-misp-the-hive-and-cortex-part-5-d8a21c886fa8
+
+https://github.com/TheHive-Project/Docker-Templates/tree/main/docker/thehive4-cortex31-shuffle
+
+
+### 遇到的问题
+容器冲突：
+`docker stop $(docker ps -aq)`
+
+提示端口冲突：
+
+```
+Error starting userland proxy: listen tcp4 0.0.0.0:9042: bind: address already in use
+```
+
+解决方法：
+
+```
+#查询PID
+lsof -i :9042
+
+#中止服务
+kill PID
+```
+
+使用docker-compose安装，Cortex提示无法连接到es,查看docker发现，es一直处于退出状态。
+
+查看es docker log
+
+报错：
+
+```
+[root@centos1 Hive&Cortex]# docker logs 7b810d62bb7b
+Exception in thread "main" java.lang.RuntimeException: starting java failed with [1]
+output:
+[0.000s][error][logging] Error opening log file 'logs/gc.log': Permission denied
+[0.000s][error][logging] Initialization of output 'file=logs/gc.log' using options 'filecount=32,filesize=64m' failed.
+error:
+Invalid -Xlog option '-Xlog:gc*,gc+age=trace,safepoint:file=logs/gc.log:utctime,pid,tags:filecount=32,filesize=64m', see error log for details.
+Error: Could not create the Java Virtual Machine.
+Error: A fatal exception has occurred. Program will exit.
+        at org.elasticsearch.tools.launchers.JvmOption.flagsFinal(JvmOption.java:119)
+        at org.elasticsearch.tools.launchers.JvmOption.findFinalOptions(JvmOption.java:81)
+        at org.elasticsearch.tools.launchers.JvmErgonomics.choose(JvmErgonomics.java:38)
+        at org.elasticsearch.tools.launchers.JvmOptionsParser.jvmOptions(JvmOptionsParser.java:135)
+        at org.elasticsearch.tools.launchers.JvmOptionsParser.main(JvmOptionsParser.java:86)
+
+```
+
+
+
+修改compose文件：
+
+参考：https://blog.csdn.net/qq_18848239/article/details/108158741
+
+```
+TAKE_FILE_OWNERSHIP=true
+```
+
+## step by step安装
 
 参考官方安装文档：
 
@@ -364,6 +428,8 @@ tail -f  /var/log/thehive/application.log
 可能是因为刚开始装了4.0版本，导致出了问题。
 
 卸载重装。
+
+
 
 ## docker安装the hive
 待更新。
