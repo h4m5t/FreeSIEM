@@ -56,6 +56,7 @@ nav:
       - Installation: install.md
       - 安装thehive: install_thehive.md
       - 安装shuffle: install_shuffle.md
+      - 安装MISP: install_MISP.md
       - 学习视频: learnshipin.md
     - Reference:
       - Reference: reference.md
