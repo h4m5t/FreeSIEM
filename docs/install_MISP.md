@@ -52,6 +52,7 @@ sudo systemctl restart apache2
 MISP.password1
 
 找到API TOken
+https://github.com/MISP/MISP/issues/5508
 
 ```
 eybqhsnylpJ6gHyx0xBYc11MrnvIL3oVETm4NC6v
