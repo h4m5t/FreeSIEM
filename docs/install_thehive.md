@@ -1,4 +1,9 @@
 # 搭建 the hive
+方法1：官方5.X docker安装。
+方法2：非官方docker安装
+https://ls111.me/thehive-cortex-misp-installation-using-docker-compose/
+
+方法3：使用OVA镜像https://docs.strangebee.com/resources/demo/
 
 ## 使用docker安装
 ### 参考
