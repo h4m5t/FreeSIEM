@@ -36,6 +36,20 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 docker-compose version
 ```
 
+或手动安装docker-compose
+```
+从github下载https://github.com/docker/compose/releases
+docker-compose-linux-x86_64
+使用sftp上传到服务器的tmp目录下。
+修改文件名
+mv docker-compose-linux-x86_64 docker-compose
+移动到目录下/usr/local/bin/
+mv docker-compose /usr/local/bin/
+sudo chmod +x /usr/local/bin/docker-compose
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+docker-compose version
+```
+
 docker换源
 `vim /etc/docker/daemon.json`
 
