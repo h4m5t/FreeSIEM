@@ -15,6 +15,11 @@ https://wmvalente.medium.com/installing-misp-the-hive-and-cortex-part-5-d8a21c88
 https://github.com/TheHive-Project/Docker-Templates/tree/main/docker/thehive4-cortex31-shuffle
 
 ### compose.yml
+注意，MISP配置中HOSTNAME的IP需要根据自己系统IP进行修改。
+在TheHive中配置MISP服务器时，需要使用https的形式，并关闭安全检查
+Do not check Certificate Autority
+Disable hostname Verification
+
 ```
 version: "3"
 services:
