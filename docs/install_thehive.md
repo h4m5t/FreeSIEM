@@ -196,6 +196,39 @@ networks:
 ```
 
 
+docker-compose up -d 启动
+查看运行状态：
+```
+oot@h4m5t:/home/h4m5t/Desktop/misp# docker ps
+CONTAINER ID   IMAGE                                                  COMMAND                  CREATED        STATUS                  PORTS                                                       NAMES
+19b4e9b3456f   strangebee/thehive:5.1                                 "/opt/thehive/entryp…"   40 hours ago   Up 40 hours             0.0.0.0:9000->9000/tcp                                      misp-thehive-1
+03727c8b2035   coolacid/misp-docker:core-latest                       "/entrypoint.sh"         40 hours ago   Up 40 hours             0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp                    misp-misp-1
+02eef218fc79   coolacid/misp-docker:modules-latest                    "/usr/local/bin/misp…"   40 hours ago   Up 40 hours                                                                         misp-misp-modules-1
+a3595546433a   thehiveproject/cortex:3.1.7                            "/opt/cortex/entrypo…"   40 hours ago   Up 40 hours             0.0.0.0:9001->9001/tcp                                      misp-cortex-1
+ddade05aae85   cassandra:4                                            "docker-entrypoint.s…"   40 hours ago   Up 40 hours             7000-7001/tcp, 7199/tcp, 9160/tcp, 0.0.0.0:9042->9042/tcp   misp-cassandra-1
+a994b83800f8   docker.elastic.co/elasticsearch/elasticsearch:7.17.9   "/bin/tini -- /usr/l…"   40 hours ago   Up 40 hours             0.0.0.0:9200->9200/tcp, 9300/tcp                            misp-elasticsearch-1
+faea8de5c62f   mysql/mysql-server:5.7                                 "/entrypoint.sh mysq…"   40 hours ago   Up 40 hours (healthy)   3306/tcp, 33060/tcp                                         misp-misp_mysql-1
+6452b2ab987b   redis:5.0.6                                            "docker-entrypoint.s…"   40 hours ago   Up 40 hours             6379/tcp                                                    misp-redis-1
+fe0f8f43b185   quay.io/minio/minio                                    "/usr/bin/docker-ent…"   40 hours ago   Up 40 hours             9000/tcp, 0.0.0.0:9002->9002/tcp                            misp-minio-1
+```
+
+查看端口开放情况
+```
+root@h4m5t:/home/h4m5t/Desktop/misp# netstat -ltpnd
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 0.0.0.0:9200            0.0.0.0:*               LISTEN      198646/docker-proxy 
+tcp        0      0 0.0.0.0:9042            0.0.0.0:*               LISTEN      198659/docker-proxy 
+tcp        0      0 0.0.0.0:9001            0.0.0.0:*               LISTEN      198980/docker-proxy 
+tcp        0      0 0.0.0.0:9000            0.0.0.0:*               LISTEN      201100/docker-proxy 
+tcp        0      0 0.0.0.0:9002            0.0.0.0:*               LISTEN      198628/docker-proxy 
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      199010/docker-proxy 
+tcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      198996/docker-proxy 
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      693/systemd-resolve 
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      402601/cupsd        
+tcp6       0      0 ::1:631                 :::*                    LISTEN      402601/cupsd   
+```
+
 
 ### 遇到的问题
 容器冲突：
