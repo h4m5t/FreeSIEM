@@ -157,4 +157,4 @@ https://github.com/Shuffle/Shuffle/blob/main/.github/install-guide.md#after-inst
 
 https://shuffler.io/apps
 
-官网提供了很多APP和workflows,可以直接导入，或者从官网下载后手动导入。
+官网提供了很多APP和workflows,可以直接导入，或者从官网下载后手动导入。需要在官网创建和登录账号。
