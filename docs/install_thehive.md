@@ -23,6 +23,20 @@ https://github.com/TheHive-Project/Docker-Templates/tree/main/docker/thehive4-co
 Do not check Certificate Autority
 Disable hostname Verification
 
+如果镜像无法顺利下载，可以用dockerhub的代替。并和compose.yml文件中的image保持一致。
+
+```
+docker pull strangebee/thehive:5.1
+docker pull cassandra:4
+docker pull elasticsearch:7.17.9
+docker pull minio/minio
+docker pull thehiveproject/cortex:3.1.7
+docker pull coolacid/misp-docker:core-latest
+docker pull mysql/mysql-server:5.7
+docker pull coolacid/misp-docker:modules-latest
+docker pull redis:5.0.6
+```
+
 ```
 version: "3"
 services:
