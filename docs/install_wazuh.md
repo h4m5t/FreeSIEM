@@ -88,9 +88,19 @@ password: wazuh
 ```
 yum -y install vim
 yum -y install psmisc
+yum -y install net-tools
 ```
 
+### 配置系统时间
 
+修改时区
+
+```
+备份原始时间文件
+mv /etc/localtime /etc/localtime.bak
+创建软连接，修改为CST时区
+ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+```
 
 ### 磁盘扩容
 
