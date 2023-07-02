@@ -58,6 +58,7 @@ nav:
       - 安装shuffle: install_shuffle.md
       - 安装MISP: install_MISP.md
       - 安装wazuh: install_wazuh.md
+      - 安装KaliPurple: install_kalipurple.md
       - 学习视频: learnshipin.md
     - Reference:
       - Reference: reference.md
