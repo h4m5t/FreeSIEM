@@ -140,3 +140,70 @@ https://zhuanlan.zhihu.com/p/540203990?utm_id=0
 https://blog.csdn.net/scxiaotan1/article/details/127326059
 
 http://www.hackdig.com/01/hack-248769.htm
+
+
+## 五、SO2.4搭建
+
+### 前言
+
+2.4版本即将发布。**使用elastic agent，取代wazuh,filebeats**
+
+由于Elastic Agent覆盖了Security Onion中使用的大部分Wazuh用例，Wazuh也将被移除。 这种单一代理架构将节省资源，简化管理流程，并简化Security Onion中的升级过程。
+
+**FleetDM ,osquery agents可能也将移除。**
+
+**新增Influx DB**
+
+参考：
+
+https://blog.securityonion.net/2023/02/security-onion-in-2022-and-2023.html
+
+https://blog.securityonion.net/2023/03/security-onion-24-beta-release-now.html
+
+### 安装过程
+
+官方镜像还未发布，需要在Rocky Linux 9 Minimal上手动安装。
+
+注意，按官方说法，之后的系统镜像可能都会在Rocky Linux 9上进行构建，需要提前熟悉此系统。
+
+```
+Security Onion Virtual Appliance based on Rocky Linux 9
+ 
+When we were laying out features for Security Onion 2.4, we really wanted to shift the focus away from the OS and more into features that help our users find evil. Users should be able to image a system or run a script to easily provision their grid. We felt that we needed to shift to more of a virtual appliance model to allow us to continue to grow and scale to the needs of the future. We are basing this new appliance model on Rocky Linux 9. This change will allow us to deliver features faster and simplify support of the platform. Rocky Linux 9 has an EOL date of March 2032 allowing us to continue to innovate on the platform for years to come. Users will be able to install Security Onion either from our ISO image or on top of a minimal installation of Rocky Linux 9. Below we explain how this will impact Ubuntu-based deployments.
+```
+
+### 安装Rocky Linux 9
+
+首先下载https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-9.1-x86_64-minimal.iso
+
+安装此系统，参考CentOS安装。
+
+### 安装securityonion-2.4
+
+安装教程：https://docs.securityonion.net/en/2.4/installation.html#installation-on-rocky-linux-or-ubuntu
+
+换源：
+
+```
+sed -e 's|^mirrorlist=|#mirrorlist=|g' \
+    -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=https://mirrors.ustc.edu.cn/rocky|g' \
+    -i.bak \
+    /etc/yum.repos.d/rocky-extras.repo \
+    /etc/yum.repos.d/rocky.repo
+ 
+dnf makecache && dnf update
+```
+
+git clone -b 2.4/main https://github.com/Security-Onion-Solutions/securityonion
+
+或手动下载解压：
+
+dnf install unzip
+
+unzip securityonion-2.4-main.zip
+
+进入目录，启动安装程序。
+
+cd securityonion
+
+sudo bash so-setup-network
