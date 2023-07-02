@@ -1,4 +1,12 @@
-# 一、介绍
+# SecurityOnion安装
+
+## 一、SecurityOnion介绍
+
+https://securityonionsolutions.com/
+
+https://blog.securityonion.net/
+
+https://github.com/Security-Onion-Solutions/securityonion
 
 Linux distro for threat hunting, enterprise security monitoring, and log management
 
@@ -8,13 +16,13 @@ Security Onion is a free and open platform for threat hunting, enterprise securi
 
 目前已更新至2.4版本，使用Elastic Fleet架构。
 
-# 二、搭建
+## 二、搭建
 
-## 2.1下载镜像
+### 2.1下载镜像
 
 https://github.com/Security-Onion-Solutions/securityonion/blob/master/VERIFY_ISO.md
 
-## 2.2安装镜像
+### 2.2安装镜像
 
 注意，选择合适的内存大小，系统版本。
 
@@ -33,7 +41,7 @@ https://github.com/Security-Onion-Solutions/securityonion/blob/master/VERIFY_ISO
 
 
 
-## 2.3开始配置
+### 2.3开始配置
 
 注意：TAB键是选择，空格键是单击，回车键是确认。
 
@@ -61,7 +69,7 @@ https://github.com/Security-Onion-Solutions/securityonion/blob/master/VERIFY_ISO
 
 
 
-## 2.4启动
+### 2.4启动
 
 安装完成后重启，使用Linux系统的用户名和密码登录。
 
@@ -79,9 +87,9 @@ https://github.com/Security-Onion-Solutions/securityonion/blob/master/VERIFY_ISO
 
 
 
-# 三、使用说明
+## 三、使用说明
 
-## 3.1登录
+### 3.1登录
 
 登录后主界面如下：
 
@@ -103,7 +111,7 @@ Fleet界面。
 
 
 
-# 四、参考资料
+## 四、参考资料
 
 虽然是镜像，但安装过程较为繁琐。
 
