@@ -109,6 +109,8 @@ ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 然后在客户机操作系统内部对磁盘重新进行分区和扩展文件系统。
 
+如果新增的磁盘在sdb,需要使用vgdisplay(查看卷组信息)、vgextend(扩展卷组)等命令，因此需要安装lvm2工具，再进行扩容操作，可以参考thehive安装教程中磁盘扩容章节。
+
 参考连接：https://github.com/wazuh/wazuh/issues/11017
 
 **扩容前**：
