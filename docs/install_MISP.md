@@ -12,6 +12,10 @@ https://github.com/MISP/MISP
 
 https://www.misp-project.org/download/
 
+教程：
+https://misp.gitbooks.io/misp-book/content/
+
+https://www.circl.lu/doc/misp/book.pdf
 
 
 ## 二、安装
