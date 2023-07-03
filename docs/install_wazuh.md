@@ -83,7 +83,7 @@ password: wazuh
 
 
 
-安装几个工具包：
+安装几个工具包(便于后面操作，可以不装，如需用到再装)：
 
 ```
 yum -y install vim
