@@ -89,6 +89,7 @@ password: wazuh
 yum -y install vim
 yum -y install psmisc
 yum -y install net-tools
+yum -y install lvm2
 ```
 
 ### 配置系统时间
