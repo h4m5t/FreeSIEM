@@ -342,3 +342,24 @@ The Wazuh agent provides [key features](https://documentation.wazuh.com/current/
 * 根据官方教程安装
 * 在Wazuh仪表盘->代理，点击部署新代理，根据提示安装。
 
+不同系统对应不同的客户端安装包。
+
+以Ubuntu为例
+
+```
+curl -so wazuh-agent.deb https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.4.4-1_amd64.deb && sudo WAZUH_MANAGER='192.168.76.149' WAZUH_AGENT_NAME='TheHive' dpkg -i ./wazuh-agent.deb
+```
+
+在纯内网环境下，可以手动上传客户端安装包。下载之后使用sftp上传到服务器，将安装包命名为：wazuh-agent.deb
+
+```
+sudo WAZUH_MANAGER='192.168.76.149' WAZUH_AGENT_NAME='TheHive' dpkg -i ./wazuh-agent.deb
+```
+
+启动客户端
+
+```
+sudo systemctl daemon-reload
+sudo systemctl enable wazuh-agent
+sudo systemctl start wazuh-agent
+```
