@@ -145,6 +145,9 @@ https://github.com/Shuffle/Shuffle/blob/main/.github/install-guide.md#after-inst
 
 [http://localhost:3001](http://localhost:3001/)
 
+尽量使用https访问，否则后面Copy WebHook URL会报错。
+[https://localhost:3443](http://localhost:3443/)
+
 ### 2.设置用户名和密码
 
 ### 3.根据提示创建后端数据库
