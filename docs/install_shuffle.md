@@ -161,3 +161,5 @@ https://github.com/Shuffle/Shuffle/blob/main/.github/install-guide.md#after-inst
 https://shuffler.io/apps
 
 官网提供了很多APP和workflows,可以直接导入，或者从官网下载后手动导入。需要在官网创建和登录账号。
+有些内置的APP，比如Shuffle Tools,只能用github pull，无法在官网下载后导入。
+对于一些第三方APP，比如Wazuh,只能从官网下载OpenAPI（yaml文件）,后再导入。
