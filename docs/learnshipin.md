@@ -10,3 +10,10 @@ https://www.youtube.com/watch?v=UdUGortZN4o&list=PLjWEV7pmvSa4yvhzNsCjOJovOn1LLy
 
 https://www.youtube.com/watch?v=Vr4flc55S5c
 
+
+# 其他资料
+
+
+https://github.com/pleibling/FreeSOC/tree/main
+
+https://github.com/archanchoudhury/SOC-OpenSource
