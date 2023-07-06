@@ -54,7 +54,8 @@ nav:
     - Home: index.md
     - Getting started:
       - Installation: install.md
-      - 安装thehive: install_thehive.md
+      - 安装thehive4: install_thehive4.md
+      - 安装thehive5: install_thehive5.md
       - 安装shuffle: install_shuffle.md
       - 安装MISP: install_MISP.md
       - 安装wazuh: install_wazuh.md
