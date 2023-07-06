@@ -173,3 +173,59 @@ https://shuffler.io/apps
 * Crowdsec
 * virustotal_v3
 * thehive_5
+
+
+## 遇到的问题
+
+https://github.com/Shuffle/Shuffle/issues/1097
+
+安装之后web界面正常，但是工作流一直显示执行中。
+
+查看docker日志：
+
+```
+2023/07/05 08:42:43 [ERROR] Container create error: Error response from daemon: No such image: ghcr.io/shuffle/shuffle-worker:latest
+2023/07/05 08:42:43 [WARNING] Execution ID ca66efea-a673-442d-b40d-e17a9210fe24 failed to deploy: Error response from daemon: No such image: ghcr.io/shuffle/shuffle-worker:latest
+2023/07/05 08:42:43 [ERROR] Container create error: Error response from daemon: No such image: ghcr.io/shuffle/shuffle-worker:latest
+2023/07/05 08:42:43 [WARNING] Execution ID 56f9a8ea-3838-4f92-a26d-c47289e9b5c2 failed to deploy: Error response from daemon: No such image: ghcr.io/shuffle/shuffle-worker:latest
+2023/07/05 08:42:43 [ERROR] Container create error: Error response from daemon: No such image: ghcr.io/shuffle/shuffle-worker:latest
+2023/07/05 08:42:43 [WARNING] Execution ID e0e152c1-6cbd-4f1d-a38b-bc5cac7e0a37 failed to deploy: Error response from daemon: No such image: ghcr.io/shuffle/shuffle-worker:latest
+```
+
+```
+2023/07/05 08:31:06 [error] 14#14: *11 connect() failed (111: Connection refused) while connecting to upstream, client: 172.29.132.144, server: localhost, request: "POST /api/v1/hooks/webhook_d7e6ae11-319e-48f8-92ba-9732547a5d19 HTTP/1.1", upstream: "http://172.19.0.4:5001/api/v1/hooks/webhook_d7e6ae11-319e-48f8-92ba-9732547a5d19", host: "172.29.132.142:3443"
+172.29.132.144 - - [05/Jul/2023:08:31:06 +0000] "POST /api/v1/hooks/webhook_d7e6ae11-319e-48f8-92ba-9732547a5d19 HTTP/1.1" 502 157 "-" "python-requests/2.25.1"
+2023/07/05 08:31:06 [error] 14#14: *13 connect() failed (111: Connection refused) while connecting to upstream, client: 172.29.132.144, server: localhost, request: "POST /api/v1/hooks/webhook_d7e6ae11-319e-48f8-92ba-9732547a5d19 HTTP/1.1", upstream: "http://172.19.0.4:5001/api/v1/hooks/webhook_d7e6ae11-319e-48f8-92ba-9732547a5d19", host: "172.29.132.142:3443"
+172.29.132.144 - - [05/Jul/2023:08:31:06 +0000] "POST /api/v1/hooks/webhook_d7e6ae11-319e-48f8-92ba-9732547a5d19 HTTP/1.1" 502 157 "-" "python-requests/2.25.1"
+2023/07/05 08:31:07 [error] 14#14: *15 connect() failed (111: Connection refused) while connecting to upstream, client: 172.29.132.144, server: localhost, request: "POST /api/v1/hooks/webhook_d7e6ae11-319e-48f8-92ba-9732547a5d19 HTTP/1.1", upstream: "http://172.19.0.4:5001/api/v1/hooks/webhook_d7e6ae11-319e-48f8-92ba-9732547a5d19", host: "172.29.132.142:3443"
+172.29.132.144 - - [05/Jul/2023:08:31:07 +0000] "POST /api/v1/hooks/webhook_d7e6ae11-319e-48f8-92ba-9732547a5d19 HTTP/1.1" 502 157 "-" "python-requests/2.25.1"
+```
+
+发现缺少镜像。
+
+下载镜像：
+
+```
+docker pull frikky/shuffle:shuffle-tools_1.2.0
+
+docker pull ghcr.io/shuffle/shuffle-worker:latest
+或者
+docker pull frikky/shuffle:shuffle-worker
+```
+
+如果用代理服务器下载，可能需要修改镜像名(tag命令)，使得与要求的一直。
+
+```
+docker tag example.example.com:8088/frikky/shuffle:shuffle-tools_1.2.0 frikky/shuffle:shuffle-tools_1.2.0
+```
+
+
+
+如果运行报错或一直显示执行中，就查看后端日志：
+
+主要是shuffle-orborus日志和shuffle-backend日志。
+
+查看时会提示查看Worker Container日志。查看此日志，排查报错原因。
+
+一般是镜像问题或内部通信问题。
+
