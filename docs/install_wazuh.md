@@ -423,7 +423,11 @@ Fri Jul 07 16:30:41 CST 2023 /tmp/shuffle-1688718641--928694779.alert  https://1
 
 ## 接收syslog
 
-参考：https://documentation.wazuh.com/current/cloud-service/your-environment/send-syslog-data.html#rsyslog-on-linux
+参考：
+
+https://documentation.wazuh.com/current/cloud-service/your-environment/send-syslog-data.html#rsyslog-on-linux
+
+https://wazuh.com/blog/integrating-wazuh-with-shuffle/
 
 有些服务器不方便或无法安装Wazuh-Agent客户端，此时可以通过syslog传输日志。
 
