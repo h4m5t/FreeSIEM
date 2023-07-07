@@ -363,3 +363,112 @@ sudo systemctl daemon-reload
 sudo systemctl enable wazuh-agent
 sudo systemctl start wazuh-agent
 ```
+
+
+## Wazuh集成Shuffle
+
+参考：
+
+https://github.com/Shuffle/Shuffle/tree/main/functions/extensions/wazuh
+
+最新版Wazuh4.4已集成，只需改修配置文件即可。
+
+```
+[root@wazuh-server etc]# ls /var/ossec/integrations/
+pagerduty  shuffle  shuffle.py  slack  slack.py  virustotal  virustotal.py
+```
+
+修改Wazuh配置文件：（可在前端页面修改或者在后台修改）
+
+```
+vi /var/ossec/etc/ossec.conf
+```
+
+添加如下集成。可以添加多个，根据level或者rule_id去发送特定的告警到Shuffle.
+
+其中，hook_url是Shuffle的webhook提供的URL，注意在Shuffle中要Start。
+
+```
+<integration>
+  <name>shuffle</name>
+  <level>5</level>
+  <hook_url>https://172.29.132.142:3443/api/v1/hooks/webhook_22081c9c-0af3-4008-9e68-6820c14b7767</hook_url>
+  <alert_format>json</alert_format>
+</integration>
+```
+
+重启
+
+```
+systemctl restart wazuh-manager
+```
+
+查看集成日志
+
+```
+tail -f /var/ossec/logs/integrations.log
+```
+
+日志显示已发送到特定的URL。
+
+```
+Fri Jul 07 16:18:59 CST 2023 /tmp/shuffle-1688717939--1205532141.alert  https://172.29.132.142:3443/api/v1/hooks/webhook_22081c9c-0af3-4008-9e68-6820c14b7767  > /dev/null 2>&1
+Fri Jul 07 16:30:41 CST 2023 /tmp/shuffle-1688718641--724724010.alert  https://172.29.132.142:3443/api/v1/hooks/webhook_22081c9c-0af3-4008-9e68-6820c14b7767  > /dev/null 2>&1
+Fri Jul 07 16:30:41 CST 2023 /tmp/shuffle-1688718641--928694779.alert  https://172.29.132.142:3443/api/v1/hooks/webhook_22081c9c-0af3-4008-9e68-6820c14b7767  > /dev/null 2>&1
+```
+
+在Shuffle中使用Shuffle Tools，输出此告警进行查看。
+
+
+
+## 接收syslog
+
+参考：https://documentation.wazuh.com/current/cloud-service/your-environment/send-syslog-data.html#rsyslog-on-linux
+
+有些服务器不方便或无法安装Wazuh-Agent客户端，此时可以通过syslog传输日志。
+
+可以将服务器的日志通过syslog发送到特定的中转服务器。在此中转服务器上安装Wazuh-Agent.
+
+
+
+修改中转服务器的syslog配置
+
+```
+vim /etc/rsyslog.conf
+```
+
+监听UDP端口514，并接收来自特定IP的日志消息，并写入到特定的文件。
+
+```
+$ModLoad imudp
+$UDPServerRun 514
+
+#Storing Messages from a Remote System into a specific File
+if $fromhost-ip == '172.xx.xx.x' then /var/log/specific.log
+& ~
+```
+
+
+
+修改中转服务器上Wazuh-Agent的配置
+
+```
+vi /var/ossec/etc/ossec.conf
+```
+
+增加下面几行：
+
+```
+<localfile>
+<log_format>syslog</log_format>
+<location>/var/log/specific.log</location>
+</localfile>
+```
+
+重启syslog服务和Wazuh-Agent
+
+```
+systemctl restart rsyslog
+systemctl restart wazuh-agent
+```
+
