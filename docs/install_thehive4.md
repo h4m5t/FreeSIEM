@@ -455,10 +455,11 @@ services:
 
 networks:
   default: null
-```                                                                                                                        1,3           Top
+```
 
 
 Cortex 的配置文件application.conf
+
 ```
 ## SECRET KEY
 #
@@ -520,7 +521,7 @@ db {
         write-consistency-level: ONE
       }
     }
-
+    
     ## Index configuration
     index {
       search {
@@ -556,7 +557,7 @@ cortex {
   # Check remote Cortex status time interval
   statusCheckInterval = 30 seconds
 }
+
 ```
 
 启动：docker-compose up -d
-
