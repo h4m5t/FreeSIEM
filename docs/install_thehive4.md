@@ -367,4 +367,196 @@ tail -f  /var/log/thehive/application.log
 
 
 ## docker安装the hive4
-待更新。
+文件路径如下：
+
+thehive4
+
+* docker-compose.yml
+* vol
+  * cortex
+    * application.conf
+  * thehive
+    * application.conf
+
+
+docker-compose.yml
+
+```
+version: '3.8'
+services:
+  ## Cortex
+  elasticsearch:
+    image: 'elasticsearch:7.11.1'
+    container_name: elasticsearch
+    restart: unless-stopped
+    ports:
+      - '0.0.0.0:9200:9200'
+    environment:
+      - http.host=0.0.0.0
+      - discovery.type=single-node
+      - cluster.name=hive
+      - script.allowed_types= inline
+      - thread_pool.search.queue_size=100000
+      - thread_pool.write.queue_size=10000
+      - gateway.recover_after_nodes=1
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms256m -Xmx256m
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - './vol/elasticsearch/data:/usr/share/elasticsearch/data'
+      - './vol/elasticsearch/logs:/usr/share/elasticsearch/logs'
+  cortex:
+    image: 'thehiveproject/cortex:latest'
+    container_name: cortex
+    restart: unless-stopped
+    command:
+      --job-directory ${JOB_DIRECTORY}
+    environment:
+      - 'JOB_DIRECTORY=${JOB_DIRECTORY}'
+    volumes:
+      - './vol/cortex/application.conf:/etc/cortex/application.conf'
+      - '${JOB_DIRECTORY}:${JOB_DIRECTORY}'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    depends_on:
+      - elasticsearch
+    ports:
+      - '0.0.0.0:9001:9001'
+
+  ## TheHive
+  thehive:
+    image: 'thehiveproject/thehive4:latest'
+    container_name: 'thehive4'
+    depends_on:
+      - cassandra
+    ports:
+      - '0.0.0.0:9000:9000'
+    volumes:
+      - ./vol/thehive/application.conf:/etc/thehive/application.conf
+      - ./vol/thehive/data:/opt/thp/thehive/data
+      - ./vol/thehive/index:/opt/thp/thehive/index
+    networks:
+      - default
+    command: '--no-config --no-config-secret'
+
+  cassandra:
+    image: 'cassandra:3.11'
+    container_name: cassandra
+    hostname: cassandra
+    environment:
+      - MAX_HEAP_SIZE=1G
+      - HEAP_NEWSIZE=1G
+      - CASSANDRA_CLUSTER_NAME=thp
+    volumes:
+      - './vol/cassandra/data:/var/lib/cassandra/data'
+
+networks:
+  default: null
+```                                                                                                                        1,3           Top
+
+
+Cortex 的配置文件application.conf
+```
+## SECRET KEY
+#
+# The secret key is used to secure cryptographic functions.
+#
+# IMPORTANT: If you deploy your application to several  instances,  make
+# sure to use the same key.
+play.http.secret.key="CortexTestPassword"
+
+## ElasticSearch
+search {
+  index = cortex
+  uri = "http://elasticsearch:9200"
+}
+
+## Cache
+cache.job = 10 minutes
+
+job {
+  runner = [docker, process]
+}
+
+## ANALYZERS
+analyzer {
+  urls = [
+    "https://download.thehive-project.org/analyzers.json"
+    #"/absolute/path/of/analyzers"
+  ]
+}
+
+# RESPONDERS
+responder {
+  urls = [
+    "https://download.thehive-project.org/responders.json"
+    #"/absolute/path/of/responders"
+  ]
+}
+```
+
+Thehive的配置文件application.conf
+```
+# Secret Key
+# The secret key is used to secure cryptographic functions.
+# WARNING: If you deploy your application on several servers, make sure to use the same key.
+play.http.secret.key="siem@tp-link.com.cn"
+
+# JanusGraph
+db {
+  provider: janusgraph
+  janusgraph {
+    storage {
+      backend: cql
+      hostname: ["cassandra"]
+
+      cql {
+        cluster-name: thp       # cluster name
+        keyspace: thehive           # name of the keyspace
+        read-consistency-level: ONE
+        write-consistency-level: ONE
+      }
+    }
+
+    ## Index configuration
+    index {
+      search {
+        backend: lucene
+        directory: /opt/thp/thehive/index
+      }
+    }
+  }
+}
+
+storage {
+   provider: localfs
+   localfs.location: /opt/thp/thehive/data
+}
+
+play.http.parser.maxDiskBuffer: 50MB
+play.modules.enabled += org.thp.thehive.connector.cortex.CortexModule
+cortex {
+  servers = [
+    {
+      name = local
+      url = "http://cortex:9001"
+      auth {
+        type = "bearer"
+        key = "4iDg0yQtTnfRQm9hms2ZrMkZnRlQPrtU"
+      }
+    }
+  ]
+  # Check job update time intervalcortex
+  refreshDelay = 5 seconds
+  # Maximum number of successive errors before give up
+  maxRetryOnError = 3
+  # Check remote Cortex status time interval
+  statusCheckInterval = 30 seconds
+}
+```
+
+启动：docker-compose up -d
+
