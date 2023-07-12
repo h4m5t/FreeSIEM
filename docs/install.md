@@ -10,6 +10,17 @@
 7. ELK到Shuffle，Wazuh到Shuffle同时存在。
 
 
+ELK到Thehive测试：
+
+```
+{
+"title" : "My Auto case",
+"description" : "A VPN user has connected from a foreign country"
+"tlp" : 3,
+"tags" : ["automatic", "creation"]
+}
+```
+
 ### helllo
 ## hello
 ### hekk
