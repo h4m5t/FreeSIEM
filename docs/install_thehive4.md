@@ -383,7 +383,7 @@ tail -f  /var/log/thehive/application.log
 ### .env
 和docker-compose在同级目录下：
 ```
-CORTEX_KEY=[WWOgwpjYZvfkD6vgDh0VnWFfApM7bOF5]
+CORTEX_KEY=[]
 COMPOSE_PROJECT_NAME=FreeSIEM
 JOB_DIRECTORY=/opt/cortex/jobs
 ```
