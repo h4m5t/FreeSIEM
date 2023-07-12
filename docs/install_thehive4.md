@@ -369,7 +369,7 @@ tail -f  /var/log/thehive/application.log
 ## docker安装the hive4
 ### 文件目录
 文件路径如下：
-
+```
 .
 ├── docker-compose.yml
 └── vol
@@ -377,6 +377,7 @@ tail -f  /var/log/thehive/application.log
     │   └── application.conf
     └── thehive
         ├── application.conf
+```
 
 ### docker-compose
 docker-compose.yml
@@ -562,6 +563,7 @@ cortex {
 ### 启动：docker-compose up -d
 
 运行后的目录结构：
+```
 .
 ├── docker-compose.yml
 └── vol
@@ -576,6 +578,18 @@ cortex {
         ├── application.conf
         ├── data
         └── index
+```
+
+docker ps查看服务运行状态：
+```
+root@TheHive:/home/thehive4# docker ps
+CONTAINER ID   IMAGE                            COMMAND                  CREATED      STATUS      PORTS                                         NAMES
+da52fee5183d   thehiveproject/cortex:latest     "/opt/cortex/entrypo…"   4 days ago   Up 4 days   0.0.0.0:9001->9001/tcp                        cortex
+4b5691796e2b   thehiveproject/thehive4:latest   "/opt/thehive/entryp…"   4 days ago   Up 4 days   0.0.0.0:9000->9000/tcp                        thehive4
+f015f074e82d   cassandra:3.11                   "docker-entrypoint.s…"   4 days ago   Up 4 days   7000-7001/tcp, 7199/tcp, 9042/tcp, 9160/tcp   cassandra
+32c2682ddd0a   elasticsearch:7.11.1             "/bin/tini -- /usr/l…"   4 days ago   Up 4 days   0.0.0.0:9200->9200/tcp, 9300/tcp              elasticsearch
+```
+
 ### 遇到的问题
 thehive4的报错
 
