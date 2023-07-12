@@ -369,14 +369,13 @@ tail -f  /var/log/thehive/application.log
 ## docker安装the hive4
 文件路径如下：
 
-thehive4
-
-* docker-compose.yml
-* vol
-  * cortex
-    * application.conf
-  * thehive
-    * application.conf
+.
+├── docker-compose.yml
+└── vol
+    ├── cortex
+    │   └── application.conf
+    └── thehive
+        ├── application.conf
 
 
 docker-compose.yml
@@ -557,7 +556,22 @@ cortex {
   # Check remote Cortex status time interval
   statusCheckInterval = 30 seconds
 }
-
 ```
 
 启动：docker-compose up -d
+
+运行后的目录结构：
+.
+├── docker-compose.yml
+└── vol
+    ├── cassandra
+    │   └── data
+    ├── cortex
+    │   └── application.conf
+    ├── elasticsearch
+    │   ├── data
+    │   └── logs
+    └── thehive
+        ├── application.conf
+        ├── data
+        └── index
