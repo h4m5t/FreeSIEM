@@ -506,7 +506,7 @@ responder {
 # Secret Key
 # The secret key is used to secure cryptographic functions.
 # WARNING: If you deploy your application on several servers, make sure to use the same key.
-play.http.secret.key="siem@tp-link.com.cn"
+play.http.secret.key="dgngu325mbnbc39cxas4l5kb24503836y2vsvsg465989fbsvop9d09ds6df6"
 
 # JanusGraph
 db {
@@ -644,3 +644,5 @@ docker logs 4b5691796e2b --follow
 
 修改之后不再报错。
 
+### 联动Cortex
+在Cortex中创建新组织和新组织下的用户，复制API-Key，复制到thehive的配置文件application.conf中，重启服务即可。
