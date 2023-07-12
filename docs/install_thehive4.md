@@ -26,6 +26,7 @@ sudo apt-get install git
 sudo apt-get install vim
 sudo apt-get install curl
 sudo apt-get install net-tools
+sudo apt-get install tree
 sudo apt-get install open-vm-tools-desktop #虚拟机安装，方便从宿主机复制命令，安装后重启生效
 ```
 
