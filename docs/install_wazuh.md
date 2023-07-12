@@ -477,4 +477,4 @@ vi /var/ossec/etc/ossec.conf
 systemctl restart rsyslog
 systemctl restart wazuh-agent
 ```
-
+可以使用tcpdump抓包查看数据流。
