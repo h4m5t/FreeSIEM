@@ -368,7 +368,7 @@ tail -f  /var/log/thehive/application.log
 
 ## docker安装the hive4
 ### 文件目录
-文件路径如下：
+文件路径如下：命令查看：`tree -L 3`
 ```
 .
 ├── docker-compose.yml
