@@ -367,6 +367,7 @@ tail -f  /var/log/thehive/application.log
 
 
 ## docker安装the hive4
+### 文件目录
 文件路径如下：
 
 .
@@ -377,7 +378,7 @@ tail -f  /var/log/thehive/application.log
     └── thehive
         ├── application.conf
 
-
+### docker-compose
 docker-compose.yml
 
 ```
@@ -457,7 +458,7 @@ networks:
 ```
 
 
-Cortex 的配置文件application.conf
+### Cortex配置文件application.conf
 
 ```
 ## SECRET KEY
@@ -498,7 +499,7 @@ responder {
 }
 ```
 
-Thehive的配置文件application.conf
+### Thehive配置文件application.conf
 ```
 # Secret Key
 # The secret key is used to secure cryptographic functions.
@@ -558,7 +559,7 @@ cortex {
 }
 ```
 
-启动：docker-compose up -d
+### 启动：docker-compose up -d
 
 运行后的目录结构：
 .
@@ -575,3 +576,56 @@ cortex {
         ├── application.conf
         ├── data
         └── index
+### 遇到的问题
+thehive4的报错
+
+```
+[error] a.a.OneForOneStrategy [|] Unable to provision, see the following errors:
+
+1) Error in custom provider, Configuration error: Configuration error[
+The application secret has not been set, and we are in prod mode. Your application is not secure.
+To set the application secret, please read http://playframework.com/documentation/latest/ApplicationSecret
+```
+
+发现是application.conf权限问题，增加所有用户的可读权限。
+
+```
+chmod 644 application.conf
+```
+
+
+
+elasticsearch启动失败，解决方法：https://github.com/TheHive-Project/Docker-Templates/issues/24
+
+chown 1000:1000  /vol/elasticsearch/data
+
+chown 1000:1000  /vol/elasticsearch/logs
+
+
+
+继续报错：
+
+```
+[error] o.t.s.u.Retry [|] An error occurs
+java.lang.IllegalArgumentException: Could not instantiate implementation: org.janusgraph.diskstorage.lucene.LuceneIndex
+```
+
+参考：https://github.com/TheHive-Project/TheHive/issues/1863
+
+
+
+需要修改vol/thehive下的文件夹及文件权限。
+
+```
+chown -R 1000:1000 data
+chown -R 1000:1000 index
+```
+
+查看实时日志：
+
+```
+docker logs 4b5691796e2b --follow
+```
+
+修改之后不再报错。
+
