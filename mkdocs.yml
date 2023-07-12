@@ -58,6 +58,7 @@ nav:
       - 安装thehive5: install_thehive5.md
       - 安装shuffle: install_shuffle.md
       - 安装MISP: install_MISP.md
+      - 安装TheHive+MISP: install_thehivemisp.md
       - 安装wazuh: install_wazuh.md
       - 安装SecurityOnion: install_SO2.3.md
       - 安装KaliPurple: install_kalipurple.md
