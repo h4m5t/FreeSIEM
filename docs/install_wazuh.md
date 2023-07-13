@@ -386,7 +386,9 @@ vi /var/ossec/etc/ossec.conf
 
 添加如下集成。可以添加多个，根据level或者rule_id去发送特定的告警到Shuffle.
 
-注意：通过level可以成功，但不是告警的等级。如果配置rule_id，却未接收到告警，待排查。
+Level参数是将大于此Level的告警发送到webhook.
+
+如果配置rule_id，却未接收到告警，待排查。
 
 其中，hook_url是Shuffle的webhook提供的URL，注意在Shuffle中要Start。
 
