@@ -51,7 +51,8 @@ markdown_extensions:
 
 # 导航
 nav:
-    - Home: index.md
+    - Home: 
+      - index: index.md
       - 文档汇总: all_doc.md
     - Getting started:
       - Installation: install.md
