@@ -52,6 +52,7 @@ markdown_extensions:
 # 导航
 nav:
     - Home: index.md
+      - 文档汇总: all_doc.md
     - Getting started:
       - Installation: install.md
       - 安装thehive4: install_thehive4.md
