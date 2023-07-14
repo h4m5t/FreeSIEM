@@ -431,6 +431,8 @@ Fri Jul 07 16:30:41 CST 2023 /tmp/shuffle-1688718641--928694779.alert  https://1
 
 ## 接收syslog
 
+下面配置是在Wazuh-Agent所在的Linux系统上进行配置。
+
 参考：
 
 https://documentation.wazuh.com/current/cloud-service/your-environment/send-syslog-data.html#rsyslog-on-linux
