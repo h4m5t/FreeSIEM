@@ -369,6 +369,8 @@ sudo systemctl start wazuh-agent
 
 参考：
 
+https://documentation.wazuh.com/current/user-manual/manager/manual-integration.html#shuffle
+
 https://github.com/Shuffle/Shuffle/tree/main/functions/extensions/wazuh
 
 最新版Wazuh4.4已集成，只需改修配置文件即可。
@@ -387,6 +389,8 @@ vi /var/ossec/etc/ossec.conf
 添加如下集成。可以添加多个，根据level或者rule_id去发送特定的告警到Shuffle.
 
 Level参数是将大于此Level的告警发送到webhook.
+
+> The rule level filter is optional. You can remove it or set another level value for the integration.
 
 如果配置rule_id，却未接收到告警，待排查。
 
